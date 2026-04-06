@@ -40,6 +40,13 @@ npm install
 npm run dev
 ```
 
+## Documentação Swagger
+
+A API expõe documentação interativa em Swagger UI:
+
+- `GET /docs` → interface web do Swagger
+- `GET /docs/json` → especificação OpenAPI 3.0 em JSON
+
 ## Endpoint principal
 
 `POST /command`

@@ -80,3 +80,34 @@ test('deve usar fallback de IA quando parser falhar', async () => {
 
   await app.close();
 });
+
+test('deve expor especificação OpenAPI em /docs/json', async () => {
+  const app = await buildApp();
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/docs/json'
+  });
+
+  assert.equal(response.statusCode, 200);
+  const body = response.json();
+  assert.equal(body.openapi, '3.0.3');
+  assert.ok(body.paths['/command']);
+
+  await app.close();
+});
+
+test('deve servir Swagger UI em /docs', async () => {
+  const app = await buildApp();
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/docs'
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.headers['content-type'], /text\/html/);
+  assert.match(response.body, /swagger-ui/i);
+
+  await app.close();
+});

@@ -11,6 +11,7 @@ import { AIFallbackService } from './services/aiFallbackService.js';
 import { CommandService } from './services/commandService.js';
 import { CommandController } from './controllers/commandController.js';
 import { commandRoutes } from './routes/commandRoutes.js';
+import { docsRoutes } from './routes/docsRoutes.js';
 
 export async function buildApp(overrides = {}) {
   const app = Fastify({ loggerInstance: buildLogger() });
@@ -35,6 +36,7 @@ export async function buildApp(overrides = {}) {
   const commandController =
     overrides.commandController ?? new CommandController(commandService);
 
+  await app.register(docsRoutes);
   await app.register(commandRoutes, { commandController });
 
   app.get('/health', async () => ({ status: 'ok' }));
