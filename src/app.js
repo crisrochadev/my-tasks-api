@@ -13,7 +13,7 @@ import { CommandController } from './controllers/commandController.js';
 import { commandRoutes } from './routes/commandRoutes.js';
 
 export async function buildApp(overrides = {}) {
-  const app = Fastify({ logger: buildLogger() });
+  const app = Fastify({ loggerInstance: buildLogger() });
 
   await app.register(cors, {
     origin: env.CORS_ORIGIN === '*' ? true : env.CORS_ORIGIN
