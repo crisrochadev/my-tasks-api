@@ -1,4 +1,4 @@
-import pino from 'fastify/lib/logger-pino.js';
+import pino from 'pino';
 import { env } from './env.js';
 
 export function buildLogger() {
